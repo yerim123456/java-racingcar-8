@@ -1,6 +1,8 @@
 package racingcar.controller;
 
 import racingcar.domain.Cars;
+import racingcar.dto.CarsDto;
+import racingcar.mapper.CarsMapper;
 import racingcar.service.RacingService;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
@@ -32,8 +34,12 @@ public class RacingController {
         // 경주 차수에 따른 결과 출력
         outputView.printRoundResultTitle();
         for (int i = 0; i < roundCount; i++) {
+            // 변경된 cars 받아 dto로 변환
             Cars cars = racingService.playRound();
-            outputView.printRoundResult(cars);
+            CarsDto carsDto = CarsMapper.toDto(cars);
+
+            // 경주 라운드 실행 결과 출력
+            outputView.printRoundResult(carsDto);
         }
 
         // 경주 승자 출력
